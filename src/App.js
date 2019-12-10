@@ -1,30 +1,51 @@
 import React, { useState,useEffect } from "react";
 import "./App.css";
-
+import * as id3 from 'id3js';
 function App() {
  
 const [ playList , setPlayList ] = useState([]);
 const [ songPlay, setSongPlay ] = useState();
 const [songNow, setSongNow] = useState('');
 const [imageSong, setImageSong] = useState();
-
-const findImage = (arr) =>{
-  arr.find((el)=>{
-    if(el.name.includes('jpg')){
-      return setImageSong(URL.createObjectURL(el))
-    }
-  })
+// const findImage = (arr) =>{
+//   arr.find((el)=>{
+//     if(el.name.includes('jpg')){
+//       return setImageSong(URL.createObjectURL(el))
+//     }
+//   })
   
-}
+// }
+
+
 
   const downLoadPlayList = (e) =>{
-    console.log(e.target.files)
-    setPlayList([...e.target.files])
-    findImage([...e.target.files])
+     
+    const listsongs = [...e.currentTarget.files]
+    console.log(listsongs)
+    listsongs.map((el)=>{
+        let newObj = el
+     id3.fromFile(el).then((tags) => {
+       console.log(tags)
+       if(tags){
+     newObj.artist = tags.artist? tags.artist: null
+     newObj.album = tags.album? tags.album: null
+     newObj.year = tags.year? tags.year: null
+     newObj.images = tags.images? tags.images: null
+
+     setPlayList([...listsongs])
+       }
+     else{
+       return null
+     }
+  });
+  
+  })
+  
+    
+  
   }
   const playSong = (objsong)=>{
     setSongNow(objsong)
-
     setSongPlay(URL.createObjectURL(objsong))
   }
 
@@ -47,13 +68,11 @@ const findImage = (arr) =>{
     <div className='player__container'>
    <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={newTrack}/>
    <div className='player__active'>
-   <img src={imageSong} />
      <span>{songNow.name}</span></div>
-   
     <ul className='player__list'>
     {playList.map((song)=>{
       return (
-        <li onClick={()=>playSong(song)} className='player__list-item player__list-item--active'>{song.name}</li>  
+        <li onClick={()=>playSong(song)} className='player__list-item player__list-item--active'>{song.artist} - {song.name}  {song.album} {song.year}</li>  
       )
     })}
     </ul>
