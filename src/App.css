@@ -1,0 +1,283 @@
+
+*{
+  padding:0;
+}
+
+.player {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.player__container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.player__controls {
+  width: 100%;
+}
+.player__list {
+  box-sizing: border-box;
+  padding: 20px 40px;
+  background-color: black;
+  max-height: 400px;
+  overflow-y: scroll;
+  
+}
+
+.player__list-item {
+  color: white;
+  padding-bottom: 20px;
+  list-style-type: none;
+  cursor: pointer;
+}
+.player__list-item--active{
+  color:red;
+}
+
+.player__active{
+  margin:10px 0 ;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.player__active span{
+  color: red;
+  font-size: 14px;
+  display: inline-block;
+  padding-left: 100%;
+  -webkit-animation: scroll 5s infinite linear;
+  -moz-animation: scroll 5s infinite linear;
+  animation: scroll 5s infinite linear;
+animation: scroll 15s infinite linear;
+}
+::-webkit-scrollbar .player__list {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: red; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb  {
+  background: red; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+@-webkit-keyframes scroll {
+  0% {
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+  }
+  100% {
+      -webkit-transform: translate(-100%, 0);
+      transform: translate(-100%, 0)
+  }
+}
+
+@-moz-keyframes scroll {
+  0% {
+      -moz-transform: translate(0, 0);
+      transform: translate(0, 0);
+  }
+  100% {
+      -moz-transform: translate(-100%, 0);
+      transform: translate(-100%, 0)
+  }
+}
+
+@keyframes scroll {
+  0% {
+      transform: translate(0, 0);
+  }
+  100% {
+      transform: translate(-100%, 0)
+  }
+}
+/* .player1 {
+  position: relative;
+  width: 500px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  border-radius: 2px;
+  padding: 5 16px;
+}
+.player1 img {
+  margin-top: 5px;
+  width: 60px;
+  height: 50px;
+}
+.player1 .info {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 50%;
+  padding: 0 16px;
+}
+.player1 .info .name {
+  font-size: 15px;
+  font-weight: 700;
+}
+.player1 .info .singer {
+  font-size: 12px;
+}
+.player1 .btns {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+.player1 .btns div:nth-child(1) {
+  font-size: 30px;
+}
+.player1 .btns div:nth-child(2),
+.player1 .btns div:nth-child(3) {
+  font-size: 18px;
+}
+.player1 .progress {
+  position: absolute;
+  height: 2px;
+  left: 0;
+  top: 0;
+  background-color: #00a8ff;
+}
+
+@font-face {
+  font-family: iconfont;
+  src: url("//static0.qianqian.com/web/st/font/iconfont-4e6.woff") format("woff");
+}
+.iconfont {
+  font-family: iconfont !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-list:before {
+  content: "\e603";
+}
+
+.icon-loop-single:before {
+  content: "\e604";
+}
+
+.icon-arrow-right:before {
+  content: "\e605";
+}
+
+.icon-loop:before {
+  content: "\e606";
+}
+
+.icon-prev:before {
+  content: "\e607";
+}
+
+.icon-favor:before {
+  content: "\e608";
+}
+
+.icon-next:before {
+  content: "\e60a";
+}
+
+.icon-download:before {
+  content: "\e60b";
+}
+
+.icon-search:before {
+  content: "\e60c";
+}
+
+.icon-zhanwei1:before {
+  content: "\e610";
+}
+
+.icon-favor1:before {
+  content: "\e618";
+}
+
+.icon-random:before {
+  content: "\e619";
+}
+
+.icon-play:before {
+  content: "\e616";
+}
+
+.icon-stop:before {
+  content: "\e617";
+}
+
+.icon-mv:before {
+  content: "\e61b";
+}
+
+.icon-arrow-down:before {
+  content: "\e61d";
+}
+
+.icon-arrow-left:before {
+  content: "\e61e";
+}
+
+.icon-arrow-up:before {
+  content: "\e61f";
+}
+
+.icon-listen:before {
+  content: "\e609";
+}
+
+.icon-round:before {
+  content: "\e60d";
+}
+
+.icon-triangle:before {
+  content: "\e60e";
+}
+
+.icon-information:before {
+  content: "\e60f";
+}
+
+.icon-home:before {
+  content: "\e611";
+}
+
+.icon-i:before {
+  content: "\e612";
+}
+
+.icon-information-:before {
+  content: "\e613";
+}
+
+.icon-bubble-filled-icon:before {
+  content: "\e614";
+}
+
+.icon-round-right:before {
+  content: "\e615";
+}
+
+.icon-vip:before {
+  content: "\e61a";
+}
+
+.icon-word:before {
+  content: "\e61c";
+} */
