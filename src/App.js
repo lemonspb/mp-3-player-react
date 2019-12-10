@@ -1,13 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import "./App.css";
 import * as id3 from 'id3js';
 function App() {
  
 const [ playList , setPlayList ] = useState([]);
 const [ songPlay, setSongPlay ] = useState();
+const [stop, setStop] = useState(false)
 const [songNow, setSongNow] = useState('');
-
-
+const audioRef = useRef()
+const progressRef = useRef()
 
 
   const downLoadPlayList = (e) =>{
@@ -59,19 +60,43 @@ const [songNow, setSongNow] = useState('');
     })
   }
 
+  useEffect(() => {
+    audioRef.current.ontimeupdate = ()=>{
+      progressRef.current.style.width = audioRef.current.currentTime/audioRef.current.duration * 100 + '%'
+    }
+  
+
+
+  }, [audioRef]);
+
+  const playTrack = () =>{
+    setStop(false)
+    audioRef.current.play()
+  }
+  const pauseTrack = () =>{
+    setStop(true)
+    audioRef.current.pause()
+  }
 
 
   return (
       <>
 
     <div className="player">
-  
-    <input type='file' onChange={downLoadPlayList} multiple className='player__download' /> 
+    <label htmlFor='input-files'>select audio files</label>
+    <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download'/> 
     <div className='player__container'>
     <div className='player__active'>
       <img src={songNow.images} alt=''/>
+      <div className='progress' ref={progressRef}></div>
      <span>{songNow.title} {songNow.album} {songNow.year}</span></div>
-   <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={newTrack}/>
+     <div className='player__btn-block'>
+       {!stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }
+     
+     
+     </div>
+ 
+   <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={newTrack}  ref={audioRef}/>
   
     <ul className='player__list'>
     {playList.map((song, i)=>{
