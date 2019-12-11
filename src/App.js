@@ -135,7 +135,7 @@ const audioRef = useRef()
     <div className='player__container'>
     <div className='player__active'>
       <img src={songNow.images} alt=''/>
-      <span>{songNow.title} {songNow.album} {songNow.year}</span></div>
+      <span>Song:{songNow.title}  Artist {songNow.artist} Album:{songNow.album} Year:{songNow.year}</span></div>
           <Slider
           min={0}
           max={100}
@@ -147,6 +147,7 @@ const audioRef = useRef()
             width: "25px",
             height: "25px",
             border: "red",
+            background:'rgb(193, 193, 193)',
             marginTop: "-10px"
           }}
           
@@ -170,9 +171,9 @@ const audioRef = useRef()
     {playList.map((song, i)=>{
       
       return (
-        <li onClick={()=>playSong(song)} className='player__list-item player__list-item--active'> 
+        <li onClick={()=>playSong(song)} className='player__list-item '> 
         <span className='player__list-index'>{i+1}.</span><img src={song.images} alt='' className='player__list-img' /> 
-        {song.artist}  {song.title?song.title:song.name}  {song.album} {song.year}</li>  
+        {song.artist}  {song.title?song.title:song.name}  </li>  
       )
     })}
     </ul>
