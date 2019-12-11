@@ -1,14 +1,18 @@
 import React, { useState,useRef,useEffect } from "react";
 import "./App.css";
 import * as id3 from 'id3js';
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+
+
 function App() {
  
 const [ playList , setPlayList ] = useState([]);
 const [ songPlay, setSongPlay ] = useState();
+const [currentValue, setCurrentValue] = useState(0)
 const [stop, setStop] = useState(false)
 const [songNow, setSongNow] = useState('');
 const audioRef = useRef()
-const progressRef = useRef()
 
 
   const downLoadPlayList = (e) =>{
@@ -16,7 +20,6 @@ const progressRef = useRef()
     const listsongs = [...e.currentTarget.files]
     listsongs.map((el)=>{
         let newObj = el
-        console.log(el)
      id3.fromFile(el).then((tags) => {
           
 
@@ -26,7 +29,7 @@ const progressRef = useRef()
      newObj.title = tags.title? tags.title: null
      newObj.year = tags.year? tags.year: null
      newObj.images = tags.images? imageConvector(tags.images[0].data): null
-
+        
      setPlayList([...listsongs])
        }
      else{
@@ -97,15 +100,6 @@ const progressRef = useRef()
       })
   }
 
-  useEffect(() => {
-    audioRef.current.ontimeupdate = ()=>{
-      progressRef.current.style.width = audioRef.current.currentTime/audioRef.current.duration * 100 + '%'
-    }
-  
-
-
-  }, [audioRef]);
-
   const playTrack = () =>{
     setStop(false)
     audioRef.current.play()
@@ -114,6 +108,22 @@ const progressRef = useRef()
     setStop(true)
     audioRef.current.pause()
   }
+
+  const timeConvector = (sec) =>{
+    const seconds = Math.floor(sec % 60)<=9? '0' + Math.floor(sec % 60):Math.floor(sec % 60)
+   return `${Math.floor(sec / 60)}:${seconds }`
+  }
+
+  useEffect(() => {
+    audioRef.current.ontimeupdate = ()=>{
+     
+      setCurrentValue(audioRef.current.currentTime/audioRef.current.duration * 100)
+    }
+  }, [audioRef]);
+
+
+
+ 
 
 
   return (
@@ -125,8 +135,28 @@ const progressRef = useRef()
     <div className='player__container'>
     <div className='player__active'>
       <img src={songNow.images} alt=''/>
-      <div className='progress' ref={progressRef}></div>
-     <span>{songNow.title} {songNow.album} {songNow.year}</span></div>
+      <span>{songNow.title} {songNow.album} {songNow.year}</span></div>
+          <Slider
+          min={0}
+          max={100}
+          step={1}
+          value={Number(currentValue)}
+          railStyle={{ background: "#6D7E92", height: "5px" }}
+          trackStyle={{ height: "5px", background: "red" }}
+          handleStyle={{
+            width: "25px",
+            height: "25px",
+            border: "red",
+            marginTop: "-10px"
+          }}
+          
+        />
+        <div className='player__time'>
+                  <span>{audioRef.current? timeConvector(audioRef.current.currentTime): ''}</span>
+        <span>{audioRef.current? timeConvector(audioRef.current.duration): ''}</span>
+
+        </div>
+     
      <div className='player__btn-block'>
      <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
        {!stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }

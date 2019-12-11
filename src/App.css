@@ -89,6 +89,14 @@ label {
   justify-content: center;
   flex-direction: column;
 }
+.player__time{
+display: flex;
+color: red;
+margin-top: 10px;
+align-items: center;
+justify-content: space-between;
+
+}
 .player__btn-block{
   display: flex;
   align-items: center;
