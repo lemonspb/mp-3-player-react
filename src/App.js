@@ -141,14 +141,14 @@ const audioRef = useRef()
           max={100}
           step={1}
           value={Number(currentValue)}
-          railStyle={{ background: "#6D7E92", height: "5px" }}
-          trackStyle={{ height: "5px", background: "red" }}
+          railStyle={{ background: "rgb(193, 193, 193)", height: "4px" }}
+          trackStyle={{ height: "4px", background: "red" }}
           handleStyle={{
-            width: "25px",
-            height: "25px",
+            width: "15px",
+            height: "15px",
             border: "red",
             background:'rgb(193, 193, 193)',
-            marginTop: "-10px"
+            marginTop: "-5px"
           }}
           
         />
