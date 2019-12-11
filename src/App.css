@@ -92,6 +92,7 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 15px 0px;
 }
 .player__active span{
   margin: 20px 0;
@@ -104,23 +105,8 @@ label {
   animation: scroll 5s infinite linear;
 animation: scroll 15s infinite linear;
 }
-::-webkit-scrollbar .player__list {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: red; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb  {
-  background: red; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+.player__active img{
+  max-width: 350px;
 }
 
 @-webkit-keyframes scroll {

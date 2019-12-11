@@ -53,11 +53,48 @@ const progressRef = useRef()
 
   const newTrack = () =>{
     playList.filter((_ ,i,arr)=>{
-    if(arr[i].name === songNow.name){
-      setSongNow(arr[++i])
-      setSongPlay(URL.createObjectURL(arr[i])) 
-    }  
-    })
+      if(arr[arr.length - 1].name  === songNow.name ){
+        setSongNow(arr[0]) 
+        setSongPlay(URL.createObjectURL(arr[0])) 
+
+      }
+      else if(arr[i].name === songNow.name){
+       
+          setSongNow(arr[++i])
+          setSongPlay(URL.createObjectURL(arr[i])) 
+       
+        }  
+      })
+  }
+  const playNextTrack = () =>{
+    playList.filter((_ ,i,arr)=>{
+      if(arr[arr.length - 1].name  === songNow.name ){
+        setSongNow(arr[0]) 
+        setSongPlay(URL.createObjectURL(arr[0])) 
+
+      }
+      else if(arr[i].name === songNow.name){
+       
+          setSongNow(arr[++i])
+          setSongPlay(URL.createObjectURL(arr[i])) 
+       
+        }  
+      })
+  }
+  const playPrevTrack = () =>{
+    playList.filter((_ ,i,arr)=>{
+      if(arr[0].name  === songNow.name ){
+        setSongNow(arr[arr.length - 1]) 
+        setSongPlay(URL.createObjectURL(arr[arr.length - 1])) 
+
+      }
+      else if(arr[i].name === songNow.name){
+       
+          setSongNow(arr[--i])
+          setSongPlay(URL.createObjectURL(arr[i])) 
+       
+        }  
+      })
   }
 
   useEffect(() => {
@@ -91,8 +128,9 @@ const progressRef = useRef()
       <div className='progress' ref={progressRef}></div>
      <span>{songNow.title} {songNow.album} {songNow.year}</span></div>
      <div className='player__btn-block'>
+     <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
        {!stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }
-     
+       <div onClick={playNextTrack} className='iconfont icon-next'></div>
      
      </div>
  
