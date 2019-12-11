@@ -11,6 +11,7 @@
   max-width: 500px;
   margin: 50px auto;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column-reverse;
 }
 .player__container {
