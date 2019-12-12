@@ -52,12 +52,20 @@ label {
 }
 
 .player__list {
+  transition: all 1s ease-in-out;
+  animation-name: animatetop;
+  animation-duration: 1s;
   box-sizing: border-box;
   background-color: black;
   max-height: 400px;
   overflow-y: scroll;
+  position: relative;
 
 }
+.player__list--open{
+  transform: (1.1);
+} 
+
 
 .player__list-item {
   border-top: 1px solid #514d4d;
@@ -146,7 +154,7 @@ color: red;
 
 .player__image {
   transition: all 1000ms ease-in-out;
-
+  border-radius: 7px;
   transform: scale(1);
   max-width: 300px;
 }
@@ -167,7 +175,10 @@ color: red;
   color: #b7aeae;
 }
 
-
+@keyframes animatetop {
+  from {top: -10px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
 
 
 
@@ -192,6 +203,8 @@ color: red;
 }
 
 .icon-list:before {
+  align-self: flex-start;
+  font-size: 40px;
   content: "\e603";
 }
 
@@ -249,9 +262,7 @@ color: red;
   content: "\e617";
 }
 
-.icon-mv:before {
-  content: "\e61b";
-}
+
 
 .icon-arrow-down:before {
   content: "\e61d";
@@ -267,6 +278,7 @@ color: red;
 }
 
 .icon-listen:before {
+ 
   content: "\e609";
 }
 

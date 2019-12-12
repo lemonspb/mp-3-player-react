@@ -12,6 +12,7 @@ const [ songPlay, setSongPlay ] = useState();
 const [currentValue, setCurrentValue] = useState(0)
 const [stop, setStop] = useState(true)
 const [songNow, setSongNow] = useState('');
+const [isOpenList, setIsOpenList]= useState(true);
 const audioRef = useRef()
 const imageRef = useRef()
 
@@ -107,6 +108,15 @@ const imageRef = useRef()
    return `${Math.floor(sec / 60)}:${seconds }`
   }
 
+const onChangeValue = (e) =>{
+ console.log(e) 
+ audioRef.current.currentTime = e
+}
+ 
+const onOpenList = () =>{
+  setIsOpenList(!isOpenList)
+}
+
   useEffect(() => {
     audioRef.current.ontimeupdate = ()=>{
      
@@ -136,6 +146,7 @@ const imageRef = useRef()
           min={0}
           max={100}
           step={0.1}
+          onChange={onChangeValue}
           value={Number(currentValue)}
           railStyle={{ background: "rgb(193, 193, 193)", height: "4px" }}
           trackStyle={{ height: "4px", background: "red" }}
@@ -162,8 +173,8 @@ const imageRef = useRef()
      </div>
  
    <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={playNextTrack}  ref={audioRef}/>
-  
-    <ul className='player__list'>
+          <div onClick={onOpenList} className='iconfont icon-list'></div> 
+          {isOpenList? <ul className='player__list'>
     {playList.map((song, i)=>{
       
       return (
@@ -172,7 +183,8 @@ const imageRef = useRef()
         <div className='player__list-details'><span className='player__list-song'>{song.title?song.title:song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>  
       )
     })}
-    </ul>
+    </ul>:null}
+   
     </div>
     </div>
     </>
