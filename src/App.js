@@ -156,7 +156,7 @@ function App() {
             onChange={onChangeValue}
             value={Number(currentValue)}
             railStyle={{ background: "rgb(193, 193, 193)", height: "4px" }}
-            trackStyle={{ height: "4px", background: "red" }}
+            trackStyle={{ height: "4px", background: "tomato" }}
             handleStyle={{
               width: "15px",
               height: "15px",

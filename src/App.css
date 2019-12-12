@@ -8,6 +8,7 @@
 
 
 .player {
+  border-radius: 17px;
   padding: 10px 15px;
   box-shadow: 0 0 10px #514d4d;
   width: 100%;
@@ -78,10 +79,10 @@ label {
   align-items: center;
 }
 .player__list-item:hover .player__list-song{
-color: red;
+color: tomato;
 }
 .player__list-item:hover  .player__list-index{
-  color: red;
+  color: tomato;
   }
 
 .player__list-item:first-child {
@@ -89,7 +90,7 @@ color: red;
 }
 
 .player__list-item--active {
-  color: red;
+  color: tomato;
 }
 
 .player__list-index {
@@ -119,7 +120,7 @@ color: red;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  color: red;
+  color: tomato;
   margin: 40px 0 20px 0;
 }
 .player-active-details__item{
@@ -133,7 +134,7 @@ color: red;
 }
 .player-active-details__subtitle{
   font-size: 16px;
-  color: red;
+  color: tomato;
 }
 .player__time {
   display: flex;
@@ -204,7 +205,7 @@ color: red;
 }
 
 .iconfont:hover {
-  color: red;
+  color: tomato;
   transition: color 300ms ease-in-out;
 }
 
