@@ -150,7 +150,10 @@ color: red;
   justify-content: center;
   margin: 15px 0px;
 }
-
+.player__btn-block--sub{
+  justify-content: space-between;
+  margin: 0;
+}
 
 
 .player__image {
@@ -254,9 +257,7 @@ color: red;
 .icon-random:before {
   content: "\e619";
   font-size: 40px;
-  position: absolute;
-  left: 0px;
-  top: 10px;
+
 }
 
 .icon-play:before {
