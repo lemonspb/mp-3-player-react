@@ -105,9 +105,10 @@ color: red;
 
 .player__active {
   position: relative;
+  padding-top: 13px;
+  box-sizing: border-box;
   width: 100%;
   white-space: nowrap;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
