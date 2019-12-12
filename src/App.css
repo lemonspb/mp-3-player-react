@@ -182,7 +182,7 @@ color: tomato;
   font-size: 12px;
   color: #b7aeae;
 }
-@media screen and (max-width:760px){
+/* @media screen and (max-width:760px){
   .player{
     height: 100vh;
   }
@@ -190,7 +190,7 @@ color: tomato;
 
     margin:0px;
   }
-  }
+  } */
 
 
 
