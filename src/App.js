@@ -126,8 +126,12 @@ const imageRef = useRef()
     <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' webkitdirectory/> 
     <div className='player__container'>
     <div className='player__active'>
+    
       <img src={songNow.images} alt=''className='player__image player__image--active' ref={imageRef} />
-      <span>Song:{songNow.title}  Artist {songNow.artist} Album:{songNow.album} Year:{songNow.year}</span></div>
+      <div className='player-active-details'>
+      <div className='player-active-details__item'><span  className='player-active-details__title'>{songNow.title}</span><span className='player-active-details__subtitle' >{songNow.artist}</span></div>
+      </div>
+      </div>
           <Slider
           min={0}
           max={100}
@@ -164,7 +168,7 @@ const imageRef = useRef()
       
       return (
         <li onClick={()=>playSong(song)} className='player__list-item '> 
-        <span className='player__list-index'>{i+1}.</span><img src={song.images} alt='' className='player__list-img' /> 
+        <span className='player__list-index'>{i+1}</span><img src={song.images} alt='' className='player__list-img' /> 
         <div className='player__list-details'><span className='player__list-song'>{song.title?song.title:song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>  
       )
     })}
