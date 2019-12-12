@@ -165,7 +165,7 @@ const imageRef = useRef()
       return (
         <li onClick={()=>playSong(song)} className='player__list-item '> 
         <span className='player__list-index'>{i+1}.</span><img src={song.images} alt='' className='player__list-img' /> 
-        {song.artist}  {song.title?song.title:song.name}  </li>  
+        <div className='player__list-details'><span className='player__list-song'>{song.title?song.title:song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>  
       )
     })}
     </ul>

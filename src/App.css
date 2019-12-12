@@ -11,7 +11,7 @@
 .player {
   padding: 10px 15px;
   
-  box-shadow: 0 0 10px rgba(255,0,0,0.9);
+  box-shadow: 0 0 10px #514d4d;
   width: 100%;
   max-width: 500px;
   margin: 50px auto;
@@ -33,13 +33,7 @@
     position: absolute;
     z-index: -1;
 }
-.progress{
-  position: absolute;
-  height: 5px;
-  left: 0;
-  bottom: 0;
-  background-color: red;
-}
+
 label {
   display: flex;
   align-items: center;
@@ -64,12 +58,17 @@ label {
 }
 
 .player__list-item {
+  border-top:1px  solid #514d4d;
   color: white;
-  padding-bottom: 20px;
+  box-sizing: border-box;
+  padding: 20px 0;
   list-style-type: none;
   cursor: pointer;
   display: flex;
     align-items: center;
+}
+.player__list-item:first-child{
+  border: none;
 }
 .player__list-item--active{
   color:red;
@@ -80,7 +79,7 @@ label {
   color: white;
 }
 .player__list-img{
-  width:30px;
+  width:40px;
   margin-right: 20px;
 }
 .player__active{
@@ -120,15 +119,24 @@ justify-content: space-between;
 animation: scroll 15s infinite linear;
 }
 .player__image{
-  transition: all 2s ease;
+  transition: all 1000ms ease-in-out;
 
  transform: scale(1);
   max-width: 300px;
 }
 .player__image--active{
-  transition: all 2s ease;
+  transition: all 1000ms ease-in-out;
   transform: scale(1.1);
 }
+.player__list-details{
+  display: flex;
+  flex-direction: column;
+}
+.player__list-artist{
+  font-size: 12px;
+  color:#b7aeae;
+}
+
 
 
 @-webkit-keyframes scroll {
@@ -176,7 +184,10 @@ animation: scroll 15s infinite linear;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.iconfont:hover {
+  color:red;
+  transition: color 300ms ease-in-out;
+}
 .icon-list:before {
   content: "\e603";
 }
