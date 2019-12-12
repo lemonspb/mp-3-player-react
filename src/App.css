@@ -158,10 +158,11 @@ color: red;
 
 
 .player__image {
+  margin-top: 10px;
   transition: all 1000ms ease-in-out;
   border-radius: 7px;
   transform: scale(1);
-  max-width: 300px;
+  max-width: 90%;
 }
 
 .player__image--active {
@@ -209,7 +210,7 @@ color: red;
 
 .icon-list:before {
   align-self: flex-start;
-  font-size: 40px;
+  font-size: 25px;
   content: "\e603";
 }
 
@@ -257,7 +258,8 @@ color: red;
 
 .icon-random:before {
   content: "\e619";
-  font-size: 40px;
+  font-size: 25px;
+  margin-left: -8px;
 
 }
 
