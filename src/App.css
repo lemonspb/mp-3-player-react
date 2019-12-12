@@ -160,14 +160,14 @@ color: tomato;
 
 .player__image {
   margin-top: 10px;
-  transition: all 1000ms ease-in-out;
+  transition: all 500ms ease-in-out;
   border-radius: 7px;
   transform: scale(1);
   max-width: 90%;
 }
 
 .player__image--active {
-  transition: all 1000ms ease-in-out;
+  transition: all 500ms ease-in-out;
   transform: scale(1.1);
 }
 
@@ -243,6 +243,7 @@ color: tomato;
 
 .icon-download:before {
   content: "\e60b";
+  font-size: 40px;
 }
 
 .icon-search:before {

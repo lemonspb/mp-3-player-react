@@ -129,7 +129,7 @@ function App() {
 
       setCurrentValue(audioRef.current.currentTime / audioRef.current.duration * 100)
     }
-  }, [audioRef]);
+  }, [audioRef,playList]);
 
 
 
@@ -139,7 +139,9 @@ function App() {
     <>
 
       <div className="player">
-        <label htmlFor='input-files'>select audio files</label>
+        <label htmlFor='input-files'>
+        <div className='iconfont icon-download'></div>
+        </label>
         <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' webkitdirectory />
         <div className='player__container'>
           <div className='player__active'>
