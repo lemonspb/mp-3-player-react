@@ -51,36 +51,25 @@ const imageRef = useRef()
 
   const playSong = (objsong)=>{
     setSongNow(objsong)
+    setStop(true)
+    imageRef.current.classList.add('player__image--active')
+
     setSongPlay(URL.createObjectURL(objsong))
   }
 
-  const newTrack = () =>{
-    playList.filter((_ ,i,arr)=>{
-      if(arr[arr.length - 1].name  === songNow.name ){
-        setSongNow(arr[0]) 
-        setSongPlay(URL.createObjectURL(arr[0])) 
-
-      }
-      else if(arr[i].name === songNow.name){
-       
-          setSongNow(arr[++i])
-          setSongPlay(URL.createObjectURL(arr[i])) 
-       
-        }  
-      })
-  }
   const playNextTrack = () =>{
     playList.filter((_ ,i,arr)=>{
       if(arr[arr.length - 1].name  === songNow.name ){
         setSongNow(arr[0]) 
         setSongPlay(URL.createObjectURL(arr[0])) 
-
+        setStop(true)
+        imageRef.current.classList.add('player__image--active')
       }
       else if(arr[i].name === songNow.name){
           setStop(true)
           setSongNow(arr[++i])
           setSongPlay(URL.createObjectURL(arr[i])) 
-       
+          imageRef.current.classList.add('player__image--active')
         }  
       })
   }
@@ -89,9 +78,11 @@ const imageRef = useRef()
       if(arr[0].name  === songNow.name ){
         setSongNow(arr[arr.length - 1]) 
         setSongPlay(URL.createObjectURL(arr[arr.length - 1])) 
-
+        setStop(true)
+        imageRef.current.classList.add('player__image--active')
       }
       else if(arr[i].name === songNow.name){
+        imageRef.current.classList.add('player__image--active')
           setStop(true)
           setSongNow(arr[--i])
           setSongPlay(URL.createObjectURL(arr[i])) 
@@ -104,13 +95,11 @@ const imageRef = useRef()
     setStop(audioRef.current.paused)
      imageRef.current.classList.add('player__image--active')
     audioRef.current.play()
-    console.log(audioRef.current.paused)
   }
   const pauseTrack = () =>{
     setStop(audioRef.current.paused)
     imageRef.current.classList.remove('player__image--active')
     audioRef.current.pause()
-    console.log(audioRef)
   }
 
   const timeСonverter = (sec) =>{
@@ -137,12 +126,12 @@ const imageRef = useRef()
     <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' webkitdirectory/> 
     <div className='player__container'>
     <div className='player__active'>
-      <img src={songNow.images} alt=''className='player__image' ref={imageRef} />
+      <img src={songNow.images} alt=''className='player__image player__image--active' ref={imageRef} />
       <span>Song:{songNow.title}  Artist {songNow.artist} Album:{songNow.album} Year:{songNow.year}</span></div>
           <Slider
           min={0}
           max={100}
-          step={1}
+          step={0.1}
           value={Number(currentValue)}
           railStyle={{ background: "rgb(193, 193, 193)", height: "4px" }}
           trackStyle={{ height: "4px", background: "red" }}
@@ -168,7 +157,7 @@ const imageRef = useRef()
      
      </div>
  
-   <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={newTrack}  ref={audioRef}/>
+   <audio  src={songPlay} autoPlay controls className='player__controls' onEnded={playNextTrack}  ref={audioRef}/>
   
     <ul className='player__list'>
     {playList.map((song, i)=>{
