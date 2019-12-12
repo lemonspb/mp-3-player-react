@@ -144,6 +144,7 @@ color: red;
 }
 
 .player__btn-block {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,6 +253,10 @@ color: red;
 
 .icon-random:before {
   content: "\e619";
+  font-size: 40px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
 }
 
 .icon-play:before {

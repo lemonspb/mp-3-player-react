@@ -117,6 +117,9 @@ const onOpenList = () =>{
   setIsOpenList(!isOpenList)
 }
 
+const randomPlayList = () =>{
+  setPlayList(playList.sort(()=>Math.random() - 0.5));
+}
   useEffect(() => {
     audioRef.current.ontimeupdate = ()=>{
      
@@ -166,6 +169,7 @@ const onOpenList = () =>{
         </div>
      
      <div className='player__btn-block'>
+     <div onClick={randomPlayList} className='iconfont icon-random'></div>
      <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
        {stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }
        <div onClick={playNextTrack} className='iconfont icon-next'></div>
