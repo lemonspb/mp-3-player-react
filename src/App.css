@@ -3,6 +3,11 @@
   padding:0;
 }
 
+
+
+
+
+
 .player {
   padding: 10px 15px;
   
@@ -114,9 +119,17 @@ justify-content: space-between;
   animation: scroll 5s infinite linear;
 animation: scroll 15s infinite linear;
 }
-.player__active img{
-  max-width: 350px;
+.player__image{
+  transition: all 2s ease;
+
+ transform: scale(1);
+  max-width: 300px;
 }
+.player__image--active{
+  transition: all 2s ease;
+  transform: scale(1.1);
+}
+
 
 @-webkit-keyframes scroll {
   0% {

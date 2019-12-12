@@ -10,10 +10,10 @@ function App() {
 const [ playList , setPlayList ] = useState([]);
 const [ songPlay, setSongPlay ] = useState();
 const [currentValue, setCurrentValue] = useState(0)
-const [stop, setStop] = useState(false)
+const [stop, setStop] = useState(true)
 const [songNow, setSongNow] = useState('');
 const audioRef = useRef()
-
+const imageRef = useRef()
 
   const downLoadPlayList = (e) =>{
      
@@ -28,7 +28,7 @@ const audioRef = useRef()
      newObj.album = tags.album? tags.album: null
      newObj.title = tags.title? tags.title: null
      newObj.year = tags.year? tags.year: null
-     newObj.images = tags.images? imageConvector(tags.images[0].data): null
+     newObj.images = tags.images? imageСonverter(tags.images[0].data): null
         
      setPlayList([...listsongs])
        }
@@ -39,7 +39,7 @@ const audioRef = useRef()
   }) 
   }
 
-  function imageConvector(img){
+  function imageСonverter(img){
     let TYPED_ARRAY = new Uint8Array(img)
     
     const STRING_CHAR = TYPED_ARRAY.reduce(( data , byte ) => { 
@@ -77,7 +77,7 @@ const audioRef = useRef()
 
       }
       else if(arr[i].name === songNow.name){
-       
+          setStop(true)
           setSongNow(arr[++i])
           setSongPlay(URL.createObjectURL(arr[i])) 
        
@@ -92,7 +92,7 @@ const audioRef = useRef()
 
       }
       else if(arr[i].name === songNow.name){
-       
+          setStop(true)
           setSongNow(arr[--i])
           setSongPlay(URL.createObjectURL(arr[i])) 
        
@@ -101,15 +101,19 @@ const audioRef = useRef()
   }
 
   const playTrack = () =>{
-    setStop(false)
+    setStop(audioRef.current.paused)
+     imageRef.current.classList.add('player__image--active')
     audioRef.current.play()
+    console.log(audioRef.current.paused)
   }
   const pauseTrack = () =>{
-    setStop(true)
+    setStop(audioRef.current.paused)
+    imageRef.current.classList.remove('player__image--active')
     audioRef.current.pause()
+    console.log(audioRef)
   }
 
-  const timeConvector = (sec) =>{
+  const timeСonverter = (sec) =>{
     const seconds = Math.floor(sec % 60)<=9? '0' + Math.floor(sec % 60):Math.floor(sec % 60)
    return `${Math.floor(sec / 60)}:${seconds }`
   }
@@ -123,7 +127,6 @@ const audioRef = useRef()
 
 
 
- 
 
 
   return (
@@ -131,10 +134,10 @@ const audioRef = useRef()
 
     <div className="player">
     <label htmlFor='input-files'>select audio files</label>
-    <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download'/> 
+    <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' webkitdirectory/> 
     <div className='player__container'>
     <div className='player__active'>
-      <img src={songNow.images} alt=''/>
+      <img src={songNow.images} alt=''className='player__image' ref={imageRef} />
       <span>Song:{songNow.title}  Artist {songNow.artist} Album:{songNow.album} Year:{songNow.year}</span></div>
           <Slider
           min={0}
@@ -153,14 +156,14 @@ const audioRef = useRef()
           
         />
         <div className='player__time'>
-                  <span>{audioRef.current? timeConvector(audioRef.current.currentTime): ''}</span>
-        <span>{audioRef.current? timeConvector(audioRef.current.duration): ''}</span>
+                  <span>{audioRef.current? timeСonverter(audioRef.current.currentTime): ''}</span>
+        <span>{audioRef.current? timeСonverter(audioRef.current.duration): ''}</span>
 
         </div>
      
      <div className='player__btn-block'>
      <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
-       {!stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }
+       {stop?<div onClick={pauseTrack} className='iconfont icon-stop'></div>:<div onClick={playTrack} className='iconfont icon-play'></div>  }
        <div onClick={playNextTrack} className='iconfont icon-next'></div>
      
      </div>
