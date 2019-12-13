@@ -323,7 +323,11 @@ p{
 
 
 .icon-arrow-down:before {
-  content: "\e61d";
+  font-size: 40px;
+    content: "\e61d";
+    position: absolute;
+    left: 44px;
+    top: 26px;
 }
 
 .icon-arrow-left:before {
