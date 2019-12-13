@@ -3,10 +3,6 @@
 }
 
 
-
-
-
-
 .player {
   
   border-radius: 17px;
@@ -202,15 +198,7 @@ color: tomato;
   font-size: 12px;
   color: #b7aeae;
 }
-/* @media screen and (max-width:760px){
-  .player{
-    height: 100vh;
-  }
-  .player__btn-block {
 
-    margin:0px;
-  }
-  } */
 p{
   color:white;
 }
@@ -225,8 +213,8 @@ p{
   padding: 10px 20px;
   margin-top: 10px;
 }
-.layer__drag-and-grop.highlight {
-  border-color: purple;
+.player__drag-and-grop--mobile{
+  display: none;
 }
 
 
@@ -264,9 +252,15 @@ p{
 }
 
 .icon-loop-single:before {
+  position: absolute;
+  font-size: 40px;
   content: "\e604";
+  top: 24px;
+  left: 97px;
 }
-
+.icon-loop-single--active{
+  color: tomato;
+}
 .icon-arrow-right:before {
   content: "\e605";
 }

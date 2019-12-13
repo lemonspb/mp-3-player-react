@@ -8,8 +8,10 @@ import "rc-slider/assets/index.css";
 
 function App() {
 
+
   const [playList, setPlayList] = useState([]);
   const [songPlay, setSongPlay] = useState();
+  const [loopOneTrack, setLoopOneTrack] = useState(false);
   const [currentValue, setCurrentValue] = useState(0)
   const [stopPlayingSong, setStopPlayingSong] = useState(true)
   const [songIndex, setSongIndex] = useState('');
@@ -83,7 +85,7 @@ function App() {
   }
 
   const playTrack = () => {
-
+    
     setStopPlayingSong(audioRef.current.paused)
     audioRef.current.play()
   }
@@ -112,6 +114,11 @@ function App() {
   const reversePlayList = () => {
     setPlayList(playList.reverse())
   }
+
+  const loopSong = () =>{
+    setLoopOneTrack(!loopOneTrack)
+  }
+
   useEffect(() => {
     audioRef.current.ontimeupdate = () => {
       setCurrentValue(audioRef.current.currentTime)
@@ -134,6 +141,13 @@ function App() {
               <p>Drop the files here ...</p> :
               <p> Drag 'n' drop some files here, or click to select files</p>
           }
+      </div>
+      <div className=' player__drag-and-grop player__drag-and-grop--mobile'>
+           <label htmlFor='input-files'>
+            sfdsfdsfdsfdsfsdfdsfdsfsdfsdfsd
+             </label> 
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' />
+        
       </div>
         <div className='player__container'>
           <div className='player__active'>
@@ -169,16 +183,16 @@ function App() {
           <div className='player__btn-block'>
 
             <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
-            {stopPlayingSong ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack} className='iconfont icon-play'></div>}
+            {stopPlayingSong ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack } className='iconfont icon-play'></div>}
             <div onClick={playNextTrack} className='iconfont icon-next'></div>
 
           </div>
 
-          <audio src={songPlay} autoPlay controls className='player__controls' onEnded={playNextTrack} ref={audioRef} />
+          <audio src={songPlay} autoPlay controls className='player__controls' onEnded={loopOneTrack?playTrack:playNextTrack} ref={audioRef} />
           <div className='player__btn-block player__btn-block--sub'>
             <div onClick={randomPlayList} className='iconfont icon-random'></div>
             <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
-
+            <div onClick={loopSong} className={`iconfont icon-loop-single  ${loopOneTrack?'icon-loop-single--active': ''}`}></div>
             <div onClick={onOpenList} className='iconfont icon-list'></div>
 
           </div>
