@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect,useCallback } from "react";
-import {useDropzone} from 'react-dropzone'
-
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useDropzone } from 'react-dropzone'
 import "./App.css";
 import * as id3 from 'id3js';
 import Slider from "rc-slider";
@@ -12,30 +11,28 @@ function App() {
   const [playList, setPlayList] = useState([]);
   const [songPlay, setSongPlay] = useState();
   const [currentValue, setCurrentValue] = useState(0)
-  const [stop, setStop] = useState(true)
-  const [songNow, setSongNow] = useState('');
+  const [stopPlayingSong, setStopPlayingSong] = useState(true)
+  const [songIndex, setSongIndex] = useState('');
+  const [songObj, setSongObj] = useState('');
   const [isOpenList, setIsOpenList] = useState(true);
+  
   const audioRef = useRef()
   const imageRef = useRef()
   const listItemRef = useRef()
 
- 
-   
-
 
   const downLoadPlayList = (e) => {
-     console.log(e)
-    let listsongs = [...e].filter((file)=>file.type.includes('audio'))
+    let listsongs = [...e].filter((file) => file.type.includes('audio'))
     listsongs.forEach((el) => {
       let newObj = el
       id3.fromFile(el).then((tags) => {
         newObj.active = ''
-        
+
         if (tags) {
-          newObj.artist = tags.artist 
-          newObj.album = tags.album 
-          newObj.title = tags.title 
-          newObj.year = tags.year 
+          newObj.artist = tags.artist
+          newObj.album = tags.album
+          newObj.title = tags.title
+          newObj.year = tags.year
           newObj.images = tags.images[0] ? imageСonverter(tags.images[0].data) : null
 
           setPlayList([...listsongs])
@@ -49,7 +46,7 @@ function App() {
   const onDrop = useCallback(acceptedFiles => {
     downLoadPlayList(acceptedFiles)
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   function imageСonverter(img) {
     let TYPED_ARRAY = new Uint8Array(img)
@@ -61,56 +58,38 @@ function App() {
     return `data:image/jpg;base64, ${base64String}`
   }
 
-  const playSong = (objsong) => {
-    setSongNow(objsong)
-    setStop(true)
-    imageRef.current.classList.add('player__image--active')
-    setSongPlay(URL.createObjectURL(objsong))
+  const playSong = (index) => {
+    setSongIndex(index)
+    setStopPlayingSong(true)
+    setSongObj(playList[index])
+    setSongPlay(URL.createObjectURL(playList[index]))
   }
 
   const playNextTrack = () => {
-    playList.forEach((_, i, arr) => {
-      if (arr[arr.length - 1].name === songNow.name) {
-        setSongNow(arr[0])
-        setSongPlay(URL.createObjectURL(arr[0]))
-        setStop(true)
-        imageRef.current.classList.add('player__image--active')
-      }
-      else if (arr[i].name === songNow.name) {
-        setStop(true)
-        setSongNow(arr[++i])
-        setSongPlay(URL.createObjectURL(arr[i]))
-        imageRef.current.classList.add('player__image--active')
-      }
-    })
+    const next = songIndex + 1 < playList.length ? songIndex + 1 : 0
+    setSongIndex(next)
+    setStopPlayingSong(true)
+    setSongPlay(URL.createObjectURL(playList[next]))
+    setSongObj(playList[next])
+
+
   }
   const playPrevTrack = () => {
-    playList.forEach((_, i, arr) => {
-      if (arr[0].name === songNow.name) {
-        setSongNow(arr[arr.length - 1])
-        setSongPlay(URL.createObjectURL(arr[arr.length - 1]))
-        setStop(true)
-        imageRef.current.classList.add('player__image--active')
-      }
-      else if (arr[i].name === songNow.name) {
-        imageRef.current.classList.add('player__image--active')
-        setStop(true)
-        setSongNow(arr[--i])
-        setSongPlay(URL.createObjectURL(arr[i]))
+    const prev = songIndex - 1 >= 0 ? songIndex - 1 : playList.length - 1;
+    setSongIndex(prev)
+    setStopPlayingSong(true)
+    setSongPlay(URL.createObjectURL(playList[prev]))
+    setSongObj(playList[prev])
 
-      }
-    })
   }
 
   const playTrack = () => {
-  
-    setStop(audioRef.current.paused)
-    imageRef.current.classList.add('player__image--active')
+
+    setStopPlayingSong(audioRef.current.paused)
     audioRef.current.play()
   }
   const pauseTrack = () => {
-    setStop(audioRef.current.paused)
-    imageRef.current.classList.remove('player__image--active')
+    setStopPlayingSong(audioRef.current.paused)
     audioRef.current.pause()
   }
 
@@ -128,10 +107,10 @@ function App() {
   }
 
   const randomPlayList = () => {
-    setPlayList(playList.sort(()=>Math.random() - 0.5));
-   
+    setPlayList(playList.sort(() => Math.random() - 0.5));
+
   }
-  const reversePlayList= ()=>{
+  const reversePlayList = () => {
     setPlayList(playList.reverse())
   }
   useEffect(() => {
@@ -151,27 +130,27 @@ function App() {
       <div className="player">
         <div className='player__drag-and-grop' {...getRootProps()}>
 
-        <label htmlFor='input-files'>
-        <div className='iconfont icon-download'></div>
-        </label>
-        <input type='file' onChange={ (e) =>downLoadPlayList(e)} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()}  />
-        {
-        isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
-      }}
+          <label htmlFor='input-files'>
+            <div className='iconfont icon-download'></div>
+          </label>
+          <input type='file' onChange={(e) => downLoadPlayList(e)} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
+          {
+            isDragActive ?
+              <p>Drop the files here ...</p> :
+              <p>Drag 'n' drop some files here, or click to select files</p>
+          }}
       </div>
         <div className='player__container'>
           <div className='player__active'>
 
-            <img src={songNow.images} alt='' className='player__image player__image--active' ref={imageRef} />
+            <img src={songObj.images} alt='' className={`player__image ${stopPlayingSong ? 'player__image--active' : ''}`} ref={imageRef} />
             <div className='player-active-details'>
-              <div className='player-active-details__item'><span className='player-active-details__title'>{songNow.title}</span><span className='player-active-details__subtitle' >{songNow.artist}</span></div>
+              <div className='player-active-details__item'><span className='player-active-details__title'>{songObj.title}</span><span className='player-active-details__subtitle' >{songObj.artist}</span></div>
             </div>
           </div>
           <Slider
             min={0}
-            max={audioRef.current ?audioRef.current.duration : 0}
+            max={audioRef.current ? audioRef.current.duration : 0}
             step={0.1}
             onChange={onChangeValue}
             value={Number(currentValue)}
@@ -193,39 +172,39 @@ function App() {
           </div>
 
           <div className='player__btn-block'>
-           
+
             <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
-            {stop ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack} className='iconfont icon-play'></div>}
+            {stopPlayingSong ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack} className='iconfont icon-play'></div>}
             <div onClick={playNextTrack} className='iconfont icon-next'></div>
 
           </div>
 
           <audio src={songPlay} autoPlay controls className='player__controls' onEnded={playNextTrack} ref={audioRef} />
           <div className='player__btn-block player__btn-block--sub'>
-          <div onClick={randomPlayList} className='iconfont icon-random'></div>
-          <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
+            <div onClick={randomPlayList} className='iconfont icon-random'></div>
+            <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
 
-          <div onClick={onOpenList} className='iconfont icon-list'></div>
-         
+            <div onClick={onOpenList} className='iconfont icon-list'></div>
+
           </div>
-         
+
 
           {isOpenList ? <ul className='player__list' id="style-3">
             {playList.map((song, i) => {
 
               return (
-               
-                <li onClick={() => playSong(song)} className={`player__list-item  ${song.active}`} ref={listItemRef} key={i}>
+
+                <li onClick={() => playSong(i)} className={`player__list-item ${i === songIndex ? 'player__list-item--active' : ''}`} ref={listItemRef} key={i}>
                   <span className='player__list-index'>{i + 1}</span><img src={song.images} alt='' className='player__list-img' />
                   <div className='player__list-details'><span className='player__list-song'>{song.title ? song.title : song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>
-               
+
               )
             })}
           </ul> : null}
-          
-   
+
+
         </div>
-           </div>
+      </div>
     </>
   );
 }
