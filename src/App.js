@@ -116,7 +116,7 @@ function App() {
 
   const timeСonverter = (sec) => {
     const seconds = Math.floor(sec % 60) <= 9 ? '0' + Math.floor(sec % 60) : Math.floor(sec % 60)
-    return `${Math.floor(sec / 60)}:${seconds}`
+    return `${Math.floor(sec / 60) || '00'}:${seconds || '00'}`
   }
 
   const onChangeValue = (event) => {
@@ -208,19 +208,24 @@ function App() {
           <div onClick={onOpenList} className='iconfont icon-list'></div>
          
           </div>
-          {isOpenList ? <ul className='player__list'>
+         
+
+          {isOpenList ? <ul className='player__list' id="style-3">
             {playList.map((song, i) => {
 
               return (
+               
                 <li onClick={() => playSong(song)} className={`player__list-item  ${song.active}`} ref={listItemRef} key={i}>
                   <span className='player__list-index'>{i + 1}</span><img src={song.images} alt='' className='player__list-img' />
                   <div className='player__list-details'><span className='player__list-song'>{song.title ? song.title : song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>
+               
               )
             })}
           </ul> : null}
-
+          
+   
         </div>
-      </div>
+           </div>
     </>
   );
 }

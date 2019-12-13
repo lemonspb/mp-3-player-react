@@ -59,11 +59,31 @@ label {
   animation-duration: 1s;
   box-sizing: border-box;
   background-color: black;
-  max-height: 400px;
-  overflow-y: scroll;
   position: relative;
-
+  max-height: 400px;
+	overflow-y: scroll;
 }
+
+#style-3::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: black;
+}
+
+#style-3::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: white;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+	background-color: rgb(193, 193, 193);
+  border: 2px solid rgb(193, 193, 193);
+  border-radius: 20px;
+}
+
+
 .player__list--open{
   transform: (1.1);
 } 
@@ -201,7 +221,8 @@ p{
   border-radius: 20px;
   width: 100%;
   font-family: sans-serif;
-  padding: 20px;
+  padding: 0 10px;
+  margin-top: 10px;
 }
 .layer__drag-and-grop.highlight {
   border-color: purple;
