@@ -26,7 +26,6 @@ function App() {
     listsongs.forEach((el) => {
       let newObj = el
       id3.fromFile(el).then((tags) => {
-        newObj.active = ''
 
         if (tags) {
           newObj.artist = tags.artist
@@ -131,13 +130,13 @@ function App() {
         <div className='player__drag-and-grop' {...getRootProps()}>
 
           <label htmlFor='input-files'>
-            <div className='iconfont icon-download'></div>
+          
           </label>
-          <input type='file' onChange={(e) => downLoadPlayList(e)} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
+              <p> Drag 'n' drop some files here, or click to select files</p>
           }}
       </div>
         <div className='player__container'>
