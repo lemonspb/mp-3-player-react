@@ -128,16 +128,12 @@ function App() {
 
       <div className="player">
         <div className='player__drag-and-grop' {...getRootProps()}>
-
-          <label htmlFor='input-files'>
-          
-          </label>
           <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
               <p> Drag 'n' drop some files here, or click to select files</p>
-          }}
+          }
       </div>
         <div className='player__container'>
           <div className='player__active'>
