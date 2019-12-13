@@ -191,7 +191,21 @@ color: tomato;
     margin:0px;
   }
   } */
+p{
+  color:white;
+}
 
+.player__drag-and-grop{
+  box-sizing: border-box;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 100%;
+  font-family: sans-serif;
+  padding: 20px;
+}
+.layer__drag-and-grop.highlight {
+  border-color: purple;
+}
 
 
 @keyframes animatetop {
