@@ -4,7 +4,7 @@
 
 
 .player {
-  
+
   border-radius: 17px;
   padding: 10px 15px;
   box-shadow: 0 0 10px #514d4d;
@@ -56,32 +56,29 @@ label {
   background-color: black;
   position: relative;
   max-height: 400px;
-	overflow-y: scroll;
+  overflow-y: scroll;
 }
 
-#style-3::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: black;
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: black;
 }
 
-#style-3::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: white;
+#style-3::-webkit-scrollbar {
+  width: 10px;
+  background-color: white;
 }
 
-#style-3::-webkit-scrollbar-thumb
-{
-	background-color: rgb(193, 193, 193);
+#style-3::-webkit-scrollbar-thumb {
+  background-color: rgb(193, 193, 193);
   border: 2px solid rgb(193, 193, 193);
   border-radius: 20px;
 }
 
 
-.player__list--open{
+.player__list--open {
   transform: (1.1);
-} 
+}
 
 
 .player__list-item {
@@ -92,14 +89,21 @@ label {
   list-style-type: none;
   cursor: pointer;
   display: flex;
+  overflow: hidden;
   align-items: center;
 }
-.player__list-item:hover .player__list-song{
-color: tomato;
+.player__list-song{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.player__list-item:hover  .player__list-index{
+.player__list-item:hover .player__list-song {
   color: tomato;
-  }
+}
+
+.player__list-item:hover .player__list-index {
+  color: tomato;
+}
 
 .player__list-item:first-child {
   border: none;
@@ -131,7 +135,8 @@ color: tomato;
   justify-content: center;
   flex-direction: column;
 }
-.player-active-details{
+
+.player-active-details {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -139,19 +144,30 @@ color: tomato;
   color: tomato;
   margin: 40px 0 20px 0;
 }
-.player-active-details__item{
+
+.player-active-details__item {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
 }
-.player-active-details__title{
+
+.player-active-details__title {
   font-size: 16px;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   margin-bottom: 5px;
-   color: rgb(193, 193, 193);
+  color: rgb(193, 193, 193);
 }
-.player-active-details__subtitle{
+
+.player-active-details__subtitle {
   font-size: 16px;
   color: tomato;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 .player__time {
   display: flex;
   color: white;
@@ -169,7 +185,8 @@ color: tomato;
   margin: 10px 0px;
 
 }
-.player__btn-block--sub{
+
+.player__btn-block--sub {
   justify-content: space-between;
   margin: 0;
 }
@@ -189,6 +206,7 @@ color: tomato;
 }
 
 .player__list-details {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -199,11 +217,11 @@ color: tomato;
   color: #b7aeae;
 }
 
-p{
-  color:white;
+p {
+  color: white;
 }
 
-.player__input-wrap{
+.player__input-wrap {
   cursor: pointer;
   box-sizing: border-box;
   border: 2px dashed #ccc;
@@ -213,22 +231,32 @@ p{
   padding: 10px 20px;
   margin-top: 15px;
 }
-.player__input-wrap--mobile{
+
+.player__input-wrap--mobile {
   display: none;
 }
-@media screen and (max-width: 1024px){
-  .player__input-wrap--desctop{
-  display: none;
-}
-.player__input-wrap--mobile{
-  display: block;
-  border: none;
-}
+
+@media screen and (max-width: 1024px) {
+  .player__input-wrap--desctop {
+    display: none;
+  }
+
+  .player__input-wrap--mobile {
+    display: block;
+    border: none;
+  }
 }
 
 @keyframes animatetop {
-  from {top: -10px; opacity: 0}
-  to {top: 0; opacity: 1}
+  from {
+    top: -10px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 
@@ -266,9 +294,11 @@ p{
   top: 24px;
   left: 97px;
 }
-.icon-loop-single--active{
+
+.icon-loop-single--active {
   color: tomato;
 }
+
 .icon-arrow-right:before {
   content: "\e605";
 }
@@ -327,10 +357,10 @@ p{
 
 .icon-arrow-down:before {
   font-size: 40px;
-    content: "\e61d";
-    position: absolute;
-    left: 44px;
-    top: 26px;
+  content: "\e61d";
+  position: absolute;
+  left: 44px;
+  top: 26px;
 }
 
 .icon-arrow-left:before {
@@ -349,9 +379,11 @@ p{
   top: 23px;
   content: "\e609";
 }
-.icon-listen--active{
+
+.icon-listen--active {
   color: tomato;
 }
+
 .icon-round:before {
   content: "\e60d";
 }
