@@ -27,7 +27,7 @@ const playDemoSong = () =>{
   setIsDemoSongPlay(true)
   setSongPlay(demoSong)
   let newObj = {}
-  musicMetadata.parseBlob(demoSong).then(tags => {
+  musicMetadata.fetchFromUrl(demoSong).then(tags => {
       newObj.artist = tags.common.artist
       newObj.album = tags.common.album
       newObj.title = tags.common.title
