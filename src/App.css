@@ -335,10 +335,15 @@ p{
 }
 
 .icon-listen:before {
- 
+  position: absolute;
+  font-size: 40px;
+  left: 156px;
+  top: 23px;
   content: "\e609";
 }
-
+.icon-listen--active{
+  color: tomato;
+}
 .icon-round:before {
   content: "\e60d";
 }

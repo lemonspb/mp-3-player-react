@@ -4,7 +4,7 @@ import "./App.css";
 import * as id3 from 'id3js';
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-
+import demoSong from './sound/04. One.mp3'
 
 function App() {
 
@@ -17,14 +17,33 @@ function App() {
   const [songIndex, setSongIndex] = useState('');
   const [songObj, setSongObj] = useState('');
   const [isOpenList, setIsOpenList] = useState(true);
-  
+  const [isDemoSongPlay, setIsDemoSongPlay] = useState(false)
   const audioRef = useRef()
   const imageRef = useRef()
   const listItemRef = useRef()
+     
+  
+const playDemoSong = () =>{
+  setIsDemoSongPlay(true)
+  setSongPlay(demoSong)
+  let newObj = {}
+  id3.fromUrl(demoSong).then((tags) => {
+      newObj.artist = tags.artist
+      newObj.album = tags.album
+      newObj.title = tags.title
+      newObj.year = tags.year
+      newObj.images = tags.images[0] ? imageСonverter(tags.images[0].data) : null
+      setSongObj(newObj)
+      setPlayList([newObj])
+      setSongIndex(0)
 
+  });
+}
 
   const downLoadPlayList = (e) => {
+    setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
+    
     listsongs.forEach((el) => {
       let newObj = el
       id3.fromFile(el).then((tags) => {
@@ -58,20 +77,38 @@ function App() {
     let base64String = btoa(STRING_CHAR);
     return `data:image/jpg;base64, ${base64String}`
   }
+  const timeСonverter = (sec) => {
+    const seconds = Math.floor(sec % 60) <= 9 ? '0' + Math.floor(sec % 60) : Math.floor(sec % 60)
+    return `${Math.floor(sec / 60) || '00'}:${seconds || '00'}`
+  }
 
   const playSong = (index) => {
-    setSongIndex(index)
     setStopPlayingSong(true)
-    setSongObj(playList[index])
-    setSongPlay(URL.createObjectURL(playList[index]))
+    if(isDemoSongPlay){
+     setSongPlay(demoSong)
+
+    }else{
+      setSongIndex(index)
+      setSongObj(playList[index])
+      setSongPlay(URL.createObjectURL(playList[index]))
+    }
+    
   }
 
   const playNextTrack = () => {
-    const next = songIndex + 1 < playList.length ? songIndex + 1 : 0
-    setSongIndex(next)
+
     setStopPlayingSong(true)
-    setSongPlay(URL.createObjectURL(playList[next]))
-    setSongObj(playList[next])
+    if(isDemoSongPlay){
+      setSongPlay(demoSong)
+      setSongIndex(0)
+      audioRef.current.play()
+
+    }else{
+      const next = songIndex + 1 < playList.length ? songIndex + 1 : 0
+      setSongIndex(next)
+      setSongObj(playList[next])
+      setSongPlay(URL.createObjectURL(playList[next]))
+    }
 
 
   }
@@ -79,13 +116,18 @@ function App() {
     const prev = songIndex - 1 >= 0 ? songIndex - 1 : playList.length - 1;
     setSongIndex(prev)
     setStopPlayingSong(true)
-    setSongPlay(URL.createObjectURL(playList[prev]))
-    setSongObj(playList[prev])
+    if(isDemoSongPlay){
+      audioRef.current.play()
+      setSongPlay(demoSong)
+      
+    }else{
+      setSongObj(playList[prev])
+      setSongPlay(URL.createObjectURL(playList[prev]))
+    }
 
   }
 
   const playTrack = () => {
-    
     setStopPlayingSong(audioRef.current.paused)
     audioRef.current.play()
   }
@@ -94,10 +136,7 @@ function App() {
     audioRef.current.pause()
   }
 
-  const timeСonverter = (sec) => {
-    const seconds = Math.floor(sec % 60) <= 9 ? '0' + Math.floor(sec % 60) : Math.floor(sec % 60)
-    return `${Math.floor(sec / 60) || '00'}:${seconds || '00'}`
-  }
+ 
 
   const onChangeValue = (event) => {
     audioRef.current.currentTime = event
@@ -193,8 +232,8 @@ function App() {
             <div onClick={randomPlayList} className='iconfont icon-random'></div>
             <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
             <div onClick={loopSong} className={`iconfont icon-loop-single  ${loopOneTrack?'icon-loop-single--active': ''}`}></div>
+            <div onClick={playDemoSong} className={`iconfont icon-listen ${isDemoSongPlay?`icon-listen--active`: ''}`}></div>
             <div onClick={onOpenList} className='iconfont icon-list'></div>
-
           </div>
 
 
