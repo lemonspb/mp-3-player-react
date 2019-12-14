@@ -21,13 +21,13 @@ function App() {
   const audioRef = useRef()
   const imageRef = useRef()
   const listItemRef = useRef()
-     
-  
-const playDemoSong = () =>{
-  setIsDemoSongPlay(true)
-  setSongPlay(demoSong)
-  let newObj = {}
-  musicMetadata.fetchFromUrl(demoSong).then(tags => {
+
+
+  const playDemoSong = () => {
+    setIsDemoSongPlay(true)
+    setSongPlay(demoSong)
+    let newObj = {}
+    musicMetadata.fetchFromUrl(demoSong).then(tags => {
       newObj.artist = tags.common.artist
       newObj.album = tags.common.album
       newObj.title = tags.common.title
@@ -37,8 +37,8 @@ const playDemoSong = () =>{
       setPlayList([newObj])
       setSongIndex(0)
 
-  });
-}
+    });
+  }
 
   const downLoadPlayList = (e) => {
     setIsDemoSongPlay(false)
@@ -46,22 +46,22 @@ const playDemoSong = () =>{
     listsongs.forEach((el) => {
       let newObj = el
 
-    musicMetadata.parseBlob(el).then(tags => {
-      if (tags) {
-        newObj.artist = tags.common.artist
-        newObj.album = tags.common.album
-        newObj.title = tags.common.title
-        newObj.year = tags.common.year
-        newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
+      musicMetadata.parseBlob(el).then(tags => {
+        if (tags) {
+          newObj.artist = tags.common.artist
+          newObj.album = tags.common.album
+          newObj.title = tags.common.title
+          newObj.year = tags.common.year
+          newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
 
-        setPlayList([...listsongs])
-      }
-      else {
-        setPlayList([...listsongs])
-      }
+          setPlayList([...listsongs])
+        }
+        else {
+          setPlayList([...listsongs])
+        }
+      })
     })
-  })
- 
+
   }
   const onDrop = useCallback(acceptedFiles => {
     downLoadPlayList(acceptedFiles)
@@ -84,26 +84,26 @@ const playDemoSong = () =>{
 
   const playSong = (index) => {
     setStopPlayingSong(true)
-    if(isDemoSongPlay){
-     setSongPlay(demoSong)
+    if (isDemoSongPlay) {
+      setSongPlay(demoSong)
 
-    }else{
+    } else {
       setSongIndex(index)
       setSongObj(playList[index])
       setSongPlay(URL.createObjectURL(playList[index]))
     }
-    
+
   }
 
   const playNextTrack = () => {
 
     setStopPlayingSong(true)
-    if(isDemoSongPlay){
+    if (isDemoSongPlay) {
       setSongPlay(demoSong)
       setSongIndex(0)
       audioRef.current.play()
 
-    }else{
+    } else {
       const next = songIndex + 1 < playList.length ? songIndex + 1 : 0
       setSongIndex(next)
       setSongObj(playList[next])
@@ -116,11 +116,11 @@ const playDemoSong = () =>{
     const prev = songIndex - 1 >= 0 ? songIndex - 1 : playList.length - 1;
     setSongIndex(prev)
     setStopPlayingSong(true)
-    if(isDemoSongPlay){
+    if (isDemoSongPlay) {
       audioRef.current.play()
       setSongPlay(demoSong)
-      
-    }else{
+
+    } else {
       setSongObj(playList[prev])
       setSongPlay(URL.createObjectURL(playList[prev]))
     }
@@ -136,7 +136,7 @@ const playDemoSong = () =>{
     audioRef.current.pause()
   }
 
- 
+
 
   const onChangeValue = (event) => {
     audioRef.current.currentTime = event
@@ -154,7 +154,7 @@ const playDemoSong = () =>{
     setPlayList(playList.reverse())
   }
 
-  const loopSong = () =>{
+  const loopSong = () => {
     setLoopOneTrack(!loopOneTrack)
   }
 
@@ -173,22 +173,22 @@ const playDemoSong = () =>{
     <>
 
       <div className="player">
-        <div className='player__input-wrap player__input-wrap--destop' {...getRootProps()}>
+        <div className='player__input-wrap player__input-wrap--desctop' {...getRootProps()}>
           <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
               <p> Drag 'n' drop some files here, or click to select files</p>
           }
-      </div>
-      <div className='player__input-wrap player__input-wrap--mobile'>
-           <label htmlFor='input-files'>
-           <p> click to select files</p>
+        </div>
+        <div className='player__input-wrap player__input-wrap--mobile'>
+          <label htmlFor='input-files'>
+            <p> click to select files</p>
 
-             </label> 
-          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' webkitdirectory='true' mozdirectory='true'  />
-        
-      </div>
+          </label>
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' />
+
+        </div>
         <div className='player__container'>
           <div className='player__active'>
 
@@ -223,17 +223,17 @@ const playDemoSong = () =>{
           <div className='player__btn-block'>
 
             <div onClick={playPrevTrack} className='iconfont icon-prev'></div>
-            {stopPlayingSong ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack } className='iconfont icon-play'></div>}
+            {stopPlayingSong ? <div onClick={pauseTrack} className='iconfont icon-stop'></div> : <div onClick={playTrack} className='iconfont icon-play'></div>}
             <div onClick={playNextTrack} className='iconfont icon-next'></div>
 
           </div>
 
-          <audio src={songPlay} autoPlay controls className='player__controls' onEnded={loopOneTrack?playTrack:playNextTrack} ref={audioRef} />
+          <audio src={songPlay} autoPlay controls className='player__controls' onEnded={loopOneTrack ? playTrack : playNextTrack} ref={audioRef} />
           <div className='player__btn-block player__btn-block--sub'>
             <div onClick={randomPlayList} className='iconfont icon-random'></div>
             <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
-            <div onClick={loopSong} className={`iconfont icon-loop-single  ${loopOneTrack?'icon-loop-single--active': ''}`}></div>
-            <div onClick={playDemoSong} className={`iconfont icon-listen ${isDemoSongPlay?`icon-listen--active`: ''}`}></div>
+            <div onClick={loopSong} className={`iconfont icon-loop-single  ${loopOneTrack ? 'icon-loop-single--active' : ''}`}></div>
+            <div onClick={playDemoSong} className={`iconfont icon-listen ${isDemoSongPlay ? `icon-listen--active` : ''}`}></div>
             <div onClick={onOpenList} className='iconfont icon-list'></div>
           </div>
 
