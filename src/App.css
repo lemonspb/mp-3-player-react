@@ -167,7 +167,8 @@ color: tomato;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15px 0px;
+  margin: 10px 0px;
+
 }
 .player__btn-block--sub{
   justify-content: space-between;
@@ -203,7 +204,7 @@ p{
   color:white;
 }
 
-.player__drag-and-grop{
+.player__input-wrap{
   cursor: pointer;
   box-sizing: border-box;
   border: 2px dashed #ccc;
@@ -211,12 +212,20 @@ p{
   width: 100%;
   font-family: sans-serif;
   padding: 10px 20px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
-.player__drag-and-grop--mobile{
+.player__input-wrap--mobile{
   display: none;
 }
-
+@media screen and (max-width: 1024px){
+.player__input-wrap--destop{
+  display: none;
+}
+.player__input-wrap--mobile{
+  display: block;
+  border: none;
+}
+}
 
 @keyframes animatetop {
   from {top: -10px; opacity: 0}

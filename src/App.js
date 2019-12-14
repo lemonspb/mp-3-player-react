@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useDropzone } from 'react-dropzone'
 import "./App.css";
-import * as id3 from 'id3js';
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import demoSong from './sound/04. One.mp3'
@@ -28,12 +27,12 @@ const playDemoSong = () =>{
   setIsDemoSongPlay(true)
   setSongPlay(demoSong)
   let newObj = {}
-  id3.fromUrl(demoSong).then((tags) => {
-      newObj.artist = tags.artist
-      newObj.album = tags.album
-      newObj.title = tags.title
-      newObj.year = tags.year
-      newObj.images = tags.images[0] ? imageСonverter(tags.images[0].data) : null
+  musicMetadata.parseBlob(demoSong).then(tags => {
+      newObj.artist = tags.common.artist
+      newObj.album = tags.common.album
+      newObj.title = tags.common.title
+      newObj.year = tags.common.year
+      newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
       setSongObj(newObj)
       setPlayList([newObj])
       setSongIndex(0)
@@ -48,7 +47,6 @@ const playDemoSong = () =>{
       let newObj = el
 
     musicMetadata.parseBlob(el).then(tags => {
-      console.log(tags)
       if (tags) {
         newObj.artist = tags.common.artist
         newObj.album = tags.common.album
@@ -63,24 +61,7 @@ const playDemoSong = () =>{
       }
     })
   })
-    // listsongs.forEach((el) => {
-    //   let newObj = el
-    //   id3.fromFile(el).then((tags) => {
-
-    //     if (tags) {
-    //       newObj.artist = tags.artist
-    //       newObj.album = tags.album
-    //       newObj.title = tags.title
-    //       newObj.year = tags.year
-    //       newObj.images = tags.images[0] ? imageСonverter(tags.images[0].data) : null
-
-    //       setPlayList([...listsongs])
-    //     }
-    //     else {
-    //       setPlayList([...listsongs])
-    //     }
-    //   });
-    // })
+ 
   }
   const onDrop = useCallback(acceptedFiles => {
     downLoadPlayList(acceptedFiles)
@@ -192,7 +173,7 @@ const playDemoSong = () =>{
     <>
 
       <div className="player">
-        <div className='player__drag-and-grop' {...getRootProps()}>
+        <div className='player__input-wrap player__input-wrap--destop' {...getRootProps()}>
           <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
@@ -200,11 +181,12 @@ const playDemoSong = () =>{
               <p> Drag 'n' drop some files here, or click to select files</p>
           }
       </div>
-      <div className=' player__drag-and-grop player__drag-and-grop--mobile'>
+      <div className='player__input-wrap player__input-wrap--mobile'>
            <label htmlFor='input-files'>
-            sfdsfdsfdsfdsfsdfdsfdsfsdfsdfsd
+           <p> click to select files</p>
+
              </label> 
-          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' />
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' webkitdirectory='true' mozdirectory='true'  />
         
       </div>
         <div className='player__container'>
