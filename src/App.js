@@ -41,18 +41,19 @@ function App() {
   }
 
   const downLoadPlayList = (e) => {
+    
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
     listsongs.forEach((el) => {
-      let newObj = el
+      
 
       musicMetadata.parseBlob(el).then(tags => {
         if (tags) {
-          newObj.artist = tags.common.artist
-          newObj.album = tags.common.album
-          newObj.title = tags.common.title
-          newObj.year = tags.common.year
-          newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
+          el.artist = tags.common.artist
+          el.album = tags.common.album
+          el.title = tags.common.title
+          el.year = tags.common.year
+          el.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
 
           setPlayList([...listsongs])
         }
