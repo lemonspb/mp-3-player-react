@@ -41,32 +41,35 @@ function App() {
   }
 
   const downLoadPlayList = (e) => {
-    
+    console.log(playList)
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
     listsongs.forEach((el) => {
       
-
-      musicMetadata.parseBlob(el).then(tags => {
+          musicMetadata.parseBlob(el).then(tags => {
         if (tags) {
           el.artist = tags.common.artist
           el.album = tags.common.album
           el.title = tags.common.title
           el.year = tags.common.year
           el.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
-
-          setPlayList([...listsongs])
+            playList.push(el)
+              
+            setPlayList([...playList])
+            console.log(playList)
         }
         else {
-          setPlayList([...listsongs])
+          setPlayList([el])
         }
       })
     })
 
   }
+
   const onDrop = useCallback(acceptedFiles => {
     downLoadPlayList(acceptedFiles)
   }, [])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   function imageСonverter(img) {
@@ -132,6 +135,7 @@ function App() {
     setStopPlayingSong(audioRef.current.paused)
     audioRef.current.play()
   }
+
   const pauseTrack = () => {
     setStopPlayingSong(audioRef.current.paused)
     audioRef.current.pause()
@@ -146,6 +150,7 @@ function App() {
   const onOpenList = () => {
     setIsOpenList(!isOpenList)
   }
+  
 
   const randomPlayList = () => {
     setPlayList(playList.sort(() => Math.random() - 0.5));
