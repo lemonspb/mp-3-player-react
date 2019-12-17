@@ -42,14 +42,8 @@ function App() {
 
   const  downLoadPlayList =  (e)  => {
     setIsDemoSongPlay(false)
-    let listsongs = [...e].filter((file) => {
-    let fileType = file.type
-
-  if (file.type.indexOf(fileType) !==-1){
-    console.log(file)
-return file
-
-  }})
+    let listsongs = [...e]
+    
     listsongs.forEach((el) => {
       console.log(el)
           musicMetadata.parseBlob(el).then( tags => {
