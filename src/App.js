@@ -41,10 +41,11 @@ function App() {
   }
 
   const  downLoadPlayList =  (e)  => {
+    console.log(e)
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
     listsongs.forEach((el) => {
-       
+      console.log(el)
           musicMetadata.parseBlob(el).then( tags => {
         if (tags) {
           el.artist = tags.common.artist
@@ -195,7 +196,7 @@ function App() {
             <p> click to select files</p>
 
           </label>
-          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download'  />
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*'  />
 
         </div>
         <div className='player__container'>
