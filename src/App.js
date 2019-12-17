@@ -66,11 +66,11 @@ function App() {
    
   }
 
-  // const onDrop = useCallback(acceptedFiles => {
-  //   downLoadPlayList(acceptedFiles)
-  // }, [])
+  const onDrop = useCallback(acceptedFiles => {
+    downLoadPlayList(acceptedFiles)
+  }, [])
 
-  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   function imageСonverter(img) {
     let TYPED_ARRAY = new Uint8Array(img)
@@ -182,20 +182,20 @@ function App() {
     <>
 
       <div className="player">
-        {/* <div className='player__input-wrap player__input-wrap--desctop' {...getRootProps()}>
+        <div className='player__input-wrap player__input-wrap--desctop' {...getRootProps()}>
           <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
               <p> Drag 'n' drop some files here, or click to select files</p>
           }
-        </div> */}
+        </div>
         <div className='player__input-wrap player__input-wrap--mobile'>
           <label htmlFor='input-files'>
             <p> click to select files</p>
 
           </label>
-          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' />
+          <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download'  />
 
         </div>
         <div className='player__container'>
