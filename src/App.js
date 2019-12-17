@@ -41,10 +41,14 @@ function App() {
   }
 
   const  downLoadPlayList =  (e)  => {
-    console.log(e)
     setIsDemoSongPlay(false)
-    let listsongs = [...e]
-    // let listsongs = [...e].filter((file) => file.type.includes('audio'))
+    let listsongs = [...e].filter((file) => {
+    
+  if (file.type.includes('audio')){
+    console.log(file)
+return file
+
+  }})
     listsongs.forEach((el) => {
       console.log(el)
           musicMetadata.parseBlob(el).then( tags => {
