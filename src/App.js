@@ -43,8 +43,9 @@ function App() {
   const  downLoadPlayList =  (e)  => {
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => {
-    console.log(file)
-  if (file.type.indexOf('audio') !==-1){
+    let fileType = file.type
+
+  if (file.type.indexOf(fileType) !==-1){
     console.log(file)
 return file
 
