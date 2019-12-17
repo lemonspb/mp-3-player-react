@@ -40,30 +40,31 @@ function App() {
     });
   }
 
-  const downLoadPlayList = (e) => {
-    console.log(playList)
+  const  downLoadPlayList = async (e)  => {
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
-    listsongs.forEach((el) => {
-      
-          musicMetadata.parseBlob(el).then(tags => {
+    listsongs.forEach(async(el) => {
+          console.log(el)
+       
+          musicMetadata.parseBlob(el).then( tags => {
         if (tags) {
           el.artist = tags.common.artist
           el.album = tags.common.album
           el.title = tags.common.title
           el.year = tags.common.year
           el.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
-            playList.push(el)
-              
+               playList.push(el)
             setPlayList([...playList])
-            console.log(playList)
+
         }
         else {
-          setPlayList([el])
+          setPlayList([...playList])
         }
+        
       })
+     
     })
-
+   
   }
 
   const onDrop = useCallback(acceptedFiles => {
@@ -156,9 +157,9 @@ function App() {
     setPlayList(playList.sort(() => Math.random() - 0.5));
 
   }
-  const reversePlayList = () => {
-    setPlayList(playList.reverse())
-  }
+  // const reversePlayList = () => {
+    
+  // }
 
   const loopSong = () => {
     setLoopOneTrack(!loopOneTrack)
@@ -173,20 +174,23 @@ function App() {
 
 
 
+  useEffect(() => {
+   console.log(playList)
+  },[]);
 
 
   return (
     <>
 
       <div className="player">
-        <div className='player__input-wrap player__input-wrap--desctop' {...getRootProps()}>
+        {/* <div className='player__input-wrap player__input-wrap--desctop' {...getRootProps()}>
           <input type='file' onChange={downLoadPlayList} id='input-files' multiple className='player__download' accept='audio/*' {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
               <p> Drag 'n' drop some files here, or click to select files</p>
           }
-        </div>
+        </div> */}
         <div className='player__input-wrap player__input-wrap--mobile'>
           <label htmlFor='input-files'>
             <p> click to select files</p>
@@ -237,7 +241,7 @@ function App() {
           <audio src={songPlay} autoPlay controls className='player__controls' onEnded={loopOneTrack ? playTrack : playNextTrack} ref={audioRef} />
           <div className='player__btn-block player__btn-block--sub'>
             <div onClick={randomPlayList} className='iconfont icon-random'></div>
-            <div onClick={reversePlayList} className='iconfont icon-arrow-down'></div>
+            <div onClick={()=>setPlayList(playList.reverse())} className='iconfont icon-arrow-down'></div>
             <div onClick={loopSong} className={`iconfont icon-loop-single  ${loopOneTrack ? 'icon-loop-single--active' : ''}`}></div>
             <div onClick={playDemoSong} className={`iconfont icon-listen ${isDemoSongPlay ? `icon-listen--active` : ''}`}></div>
             <div onClick={onOpenList} className='iconfont icon-list'></div>
