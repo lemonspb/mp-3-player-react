@@ -44,7 +44,7 @@ function App() {
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => {
     console.log(file)
-  if (file.type.includes('audio')){
+  if (file.type.indexOf('audio') !==-1){
     console.log(file)
 return file
 
