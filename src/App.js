@@ -40,11 +40,10 @@ function App() {
     });
   }
 
-  const  downLoadPlayList = async (e)  => {
+  const  downLoadPlayList =  (e)  => {
     setIsDemoSongPlay(false)
     let listsongs = [...e].filter((file) => file.type.includes('audio'))
-    listsongs.forEach(async(el) => {
-          console.log(el)
+    listsongs.forEach((el) => {
        
           musicMetadata.parseBlob(el).then( tags => {
         if (tags) {
@@ -67,11 +66,11 @@ function App() {
    
   }
 
-  const onDrop = useCallback(acceptedFiles => {
-    downLoadPlayList(acceptedFiles)
-  }, [])
+  // const onDrop = useCallback(acceptedFiles => {
+  //   downLoadPlayList(acceptedFiles)
+  // }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   function imageСonverter(img) {
     let TYPED_ARRAY = new Uint8Array(img)
