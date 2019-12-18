@@ -32,7 +32,7 @@ function App() {
       newObj.album = tags.common.album
       newObj.title = tags.common.title
       newObj.year = tags.common.year
-      newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
+      newObj.images = tags.common.picture ? imageСonverter(tags.common.picture[0].data) : null
       setSongObj(newObj)
       setPlayList([newObj])
       setSongIndex(0)
@@ -45,7 +45,6 @@ function App() {
     let listsongs = [...e]
     
     listsongs.forEach((el) => {
-      console.log(el)
           musicMetadata.parseBlob(el).then( tags => {
         if (tags) {
           el.artist = tags.common.artist
@@ -101,7 +100,9 @@ function App() {
   }
 
   const playNextTrack = () => {
-
+    if(playList.length === 0){
+      return
+    }
     setStopPlayingSong(true)
     if (isDemoSongPlay) {
       setSongPlay(demoSong)
@@ -118,6 +119,9 @@ function App() {
 
   }
   const playPrevTrack = () => {
+    if(playList.length === 0){
+      return
+    }
     const prev = songIndex - 1 >= 0 ? songIndex - 1 : playList.length - 1;
     setSongIndex(prev)
     setStopPlayingSong(true)
@@ -157,9 +161,7 @@ function App() {
     setPlayList(playList.sort(() => Math.random() - 0.5));
 
   }
-  // const reversePlayList = () => {
-    
-  // }
+
 
   const loopSong = () => {
     setLoopOneTrack(!loopOneTrack)
