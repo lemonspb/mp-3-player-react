@@ -32,7 +32,7 @@ function App() {
       newObj.album = tags.common.album
       newObj.title = tags.common.title
       newObj.year = tags.common.year
-      newObj.images = tags.common.picture ? imageСonverter(tags.common.picture[0].data) : null
+      newObj.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
       setSongObj(newObj)
       setPlayList([newObj])
       setSongIndex(0)
@@ -51,7 +51,7 @@ function App() {
           el.album = tags.common.album
           el.title = tags.common.title
           el.year = tags.common.year
-          el.images = tags.common.picture[0] ? imageСonverter(tags.common.picture[0].data) : null
+          el.images = tags.common.picture ? imageСonverter(tags.common.picture[0].data) : null
                playList.push(el)
             setPlayList([...playList])
 
