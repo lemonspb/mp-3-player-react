@@ -198,6 +198,7 @@ label {
   border-radius: 7px;
   transform: scale(1);
   max-width: 90%;
+  background-color: white;
 }
 
 .player__image--active {

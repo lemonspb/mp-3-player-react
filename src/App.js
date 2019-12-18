@@ -5,7 +5,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import demoSong from './sound/04. One.mp3'
 import * as musicMetadata from 'music-metadata-browser';
-
+import Poster from './image/musical.png'
 function App() {
 
 
@@ -204,7 +204,7 @@ function App() {
         <div className='player__container'>
           <div className='player__active'>
 
-            <img src={songObj.images} alt='' className={`player__image ${stopPlayingSong ? 'player__image--active' : ''}`} ref={imageRef} />
+            <img src={songObj.images || Poster} alt='' className={`player__image ${stopPlayingSong ? 'player__image--active' : ''}`} ref={imageRef} />
             <div className='player-active-details'>
               <div className='player-active-details__item'><span className='player-active-details__title'>{songObj.title}</span><span className='player-active-details__subtitle' >{songObj.artist}</span></div>
             </div>
