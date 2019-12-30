@@ -17,7 +17,7 @@ function App() {
   const [stopPlayingSong, setStopPlayingSong] = useState(true)
   const [songIndex, setSongIndex] = useState('');
   const [songObj, setSongObj] = useState('');
-  const [isOpenList, setIsOpenList] = useState(false);
+  const [isOpenList, setIsOpenList] = useState(true);
   const [isDemoSongPlay, setIsDemoSongPlay] = useState(false)
   const audioRef = useRef()
   const imageRef = useRef()
