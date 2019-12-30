@@ -6,6 +6,7 @@ import "rc-slider/assets/index.css";
 import demoSong from './sound/04. One.mp3'
 import * as musicMetadata from 'music-metadata-browser';
 import Poster from './image/musical.png'
+import  {ClearIcon} from './svg/svg'
 function App() {
 
 
@@ -161,7 +162,12 @@ function App() {
     setPlayList(playList.sort(() => Math.random() - 0.5));
 
   }
-
+  const clearPlayList = () =>{
+   const abc =  playList.map((el)=>{
+      playList.push([])
+    })
+    setPlayList([abc])
+  }
 
   const loopSong = () => {
     setLoopOneTrack(!loopOneTrack)
@@ -250,18 +256,18 @@ function App() {
           </div>
 
 
-          {isOpenList ? <ul className='player__list' id="style-3">
+       <ul className={`player__list ${isOpenList?'player__list--open':'player__list--close'}`} id="style-3">
             {playList.map((song, i) => {
 
               return (
 
                 <li onClick={() => playSong(i)} className={`player__list-item ${i === songIndex ? 'player__list-item--active' : ''}`} ref={listItemRef} key={i}>
                   <span className='player__list-index'>{i + 1}</span><img src={song.images} alt='' className='player__list-img' />
-                  <div className='player__list-details'><span className='player__list-song'>{song.title ? song.title : song.name}</span><span className='player__list-artist'>{song.artist}</span></div>    </li>
+                  <div className='player__list-details'><span className='player__list-song'>{song.title ? song.title : song.name}</span><span className='player__list-artist'>{song.artist}</span> </div>    </li>
 
               )
             })}
-          </ul> : null}
+          </ul>
 
 
         </div>

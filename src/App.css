@@ -49,14 +49,11 @@ label {
 }
 
 .player__list {
-  transition: all 1s ease-in-out;
-  animation-name: animatetop;
-  animation-duration: 1s;
   box-sizing: border-box;
   background-color: black;
   position: relative;
-  max-height: 400px;
   overflow-y: scroll;
+
 }
 
 #style-3::-webkit-scrollbar-track {
@@ -77,9 +74,21 @@ label {
 
 
 .player__list--open {
-  transform: (1.1);
+  height: 400px;
+  
+  opacity: 1;
+  transition: 300ms all ease-in-out;
+  transform: translateY(0px)
 }
+.player__list--close {
+  visibility: hidden;
+  overflow: hidden;
+ height: 0;
+  
+  transition: 300ms all ease-in-out;
+  transform: translateY(10px);
 
+}
 
 .player__list-item {
   border-top: 1px solid #514d4d;
@@ -248,17 +257,8 @@ p {
   }
 }
 
-@keyframes animatetop {
-  from {
-    top: -10px;
-    opacity: 0
-  }
 
-  to {
-    top: 0;
-    opacity: 1
-  }
-}
+
 
 
 
@@ -423,4 +423,15 @@ p {
 
 .icon-word:before {
   content: "\e61c";
+}
+.icon-clear svg{
+  cursor: pointer;
+  position: absolute;
+  width: 33px;
+  height: 53px;
+  fill: rgb(193, 193, 193);
+  top: 15px;
+}
+.icon-clear svg:hover{
+  fill: tomato;
 }
