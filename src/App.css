@@ -41,7 +41,7 @@ label {
 
 .player__controls {
   width: 100%;
-  display: none;
+   display: none;
 }
 
 .player__list {
