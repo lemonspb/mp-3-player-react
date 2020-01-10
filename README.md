@@ -1,6 +1,6 @@
 ## MP-3 online player create in React.js
 
-### Download and listen your misic files in browser
+### Download and listen your music files in browser
 
 
 
